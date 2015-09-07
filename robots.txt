@@ -1,12 +1,3 @@
----
-layout: null
----
+User-Agent: *
 
-# robotstxt.org/
-# The robots exclusion protocol
-
-User-agent: *
-Disallow:
-Disallow: /page
-Disallow: /search
-Sitemap: {{ site.url }}/sitemap.xml
+Sitemap: http://pexcn.tk/sitemap.txt
