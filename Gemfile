@@ -1,6 +1,4 @@
-source :rubygems
+source 'https://rubygems.org'
 
-gem "jekyll"
-gem "less"
-gem "therubyracer"
-gem "yuicompressor"
+gem 'github-pages'
+gem 'html-proofer'

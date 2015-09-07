@@ -1,0 +1,100 @@
+---
+layout: search
+title: "Search"
+description: "Search your query."
+sitemap: false
+permalink: /search/
+---
+
+<style>
+.intro-header .page-heading {
+    padding: 75px 0 25px;
+}
+@media (min-width: 768px) {
+  .intro-header .site-heading {
+    padding: 80px 0 40px;
+  }
+}
+.search-heading {
+  font-weight: normal;
+}
+.search-box {
+  margin: 30px 0;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+.search-box,
+.search-box * {
+  -webkit-box-sizing: content-box;
+     -moz-box-sizing: content-box;
+          box-sizing: content-box;
+}
+.search-form {
+  margin-bottom: 30px;
+}
+.gsc-control-cse {
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 16px;
+}
+.gsc-webResult .gsc-result {
+  padding: 20px 0;
+}
+.gs-title,
+.gs-title * {
+  font-size: 18px!important;
+}
+.gs-snippet {
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 15px;
+  margin-top: 10px;
+  padding-left: 6px;
+}
+.gsc-cursor-box {
+  display: block;
+  padding: 10px;
+  text-align: center;
+  background-color: #f5f6f5;
+  border-radius: 3px;
+  margin-top: 30px!important;
+}
+.gsc-url-top {
+  padding-top: 8px;
+}
+.gcsc-branding,
+.gsc-adBlock,
+.gsc-location {
+  display: none!important;
+}
+</style>
+
+
+<h3 class="search-heading"><i class="fa fa-search"></i> Search {{ site.name }} articles</h3>
+
+<div class="search-box" id="cse-search">
+  <!-- Google CSE Search Box Begins  -->
+  <form class="search-form" id="cse_{{ site.google_cse_id }}" action="/search/" role="search">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="input-group input-group-lg">
+          <input type="text" class="form-control" id="q" name="q" placeholder="Search {{ site.name }}" tabindex="1" autocapitalize="off" autofocus autocomplete="off" spellcheck="false">
+          <div class="input-group-btn">
+            <button type="submit" class="btn btn-default" tabindex="2"><i class="fa fa-search"></i></button>
+          </div><!-- /.btn-group -->
+        </div><!-- /.input-group -->
+      </div><!-- /.col-xs-12 -->
+    </div><!-- /.row -->
+  </form>
+
+  <script>
+    (function() {
+      var cx = '{{ site.google_cse_id }}';
+      var gcse = document.createElement('script');
+      gcse.type = 'text/javascript';
+      gcse.async = true;
+      gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+          '//cse.google.com/cse.js?cx=' + cx;
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(gcse, s);
+    })();
+  </script>
+  <gcse:searchresults-only linktarget="_parent"></gcse:searchresults-only>
+</div><!-- ./search-box -->

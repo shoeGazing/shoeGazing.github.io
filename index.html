@@ -1,33 +1,41 @@
 ---
-layout:   default
---- 
+layout: index
+---
 
-<div class="span-12 last">
-  <p class="first">
-    Design. Development. Illustration.
-  </p>
-	{% include folio.html %}
-</div>
-
-<div id="latest-notes" class="span-8">  
-  <h2>Recent writing</h2>
-  {% for post in site.posts limit:1 %}
-    {% include post_excerpt.html %}    
-  {% endfor %}
-  <p>
-    For older posts, have a look in the <a href="/notebook.html">notebook</a>.
-  </p>
-</div>
-
-<div id="working-on" class="span-4 last">
-  <h2>What I'm working on</h2>  
-  <!--[if lt IE 7]>      
-  <p>
-  Unfortunately, IE 6 is not capable of displaying these images without completely borking the page formatting, so they have been removed.
-  </p>
-  <p>
-  You can go to <a href="{{ site.dribbble }}">Dribble.com</a> to see them full size, or you can download a modern standards compliant browser like <a href="http://www.google.com/chrome">Chrome</a>, <a href="http://www.mozilla.com/en-US/firefox/">Firefox</a> or <a href="http://www.apple.com/safari/download/">Safari</a>.
-  <![endif]-->    
-  <div id="mydribbble" >
+{% for post in paginator.posts %}
+<article class="post-preview clearfix" itemscope itemtype="http://schema.org/Article">
+  <link itemprop="image" href="{% if post.featured_image %}{{ post.featured_image }}{% else %}{{ site.icon }}{% endif %}">
+  <div class="post-meta">
+    <time itemprop="datePublished" datetime="{{ post.date | date_to_xmlschema }}"{% if post.last_modified_at %} data-toggle="tooltip" data-placement="top" title="Updated {{ post.last_modified_at | date: '%b %-d, %Y' }}"{% endif %}>{{ post.date | date: '%b %-d, %Y' }}</time><span class="middot-divider"></span><span data-toggle="tooltip" data-placement="top" title="{{ post.content | strip_html | number_of_words | append:' words'}}">{% capture reading_time %}{{ post.content | strip_html | number_of_words | plus:91 | divided_by:180 }}{% endcapture %}{% if reading_time <= '1' %}{{ 1 | append:' min read' }}{% else %}{{ reading_time | append:' min read' }}{% endif %}</span>
   </div>
-</div>
+  <a itemprop="url" href="{{ post.url }}">
+    <div class="clearfix">
+      <h2 class="post-title" itemprop="name headline">{{ post.title | markdownify | strip_html | strip_newlines }}</h2>
+      {% if post.subtitle %}
+        <p class="post-subtitle" itemprop="description">{{ post.subtitle | markdownify | strip_html | strip_newlines | truncate: 160 }}</p>
+      {% elsif post.excerpt and post.excerpt != blank %}
+        <p class="post-subtitle" itemprop="description">{{ post.excerpt | markdownify | strip_html | strip_newlines | truncate: 160 }}</p>
+      {% endif %}
+    </div>
+  </a>
+</article>
+<hr class="post-preview-divider">
+{% endfor %}
+
+<!-- Pager -->
+{% if paginator.total_pages > 1 %}
+<nav class="clearfix" itemscope itemtype="http://schema.org/SiteNavigationElement">
+  <ul class="pager">
+    {% if paginator.previous_page %}
+    <li class="previous">
+      <a itemprop="url" href="{{ paginator.previous_page_path | replace:'//','/' }}"><i class="fa fa-angle-double-left"></i> <span itemprop="name">Newer</span></a>
+    </li>
+    {% endif %}
+    {% if paginator.next_page %}
+    <li class="next">
+      <a itemprop="url" href="{{ paginator.next_page_path | replace:'//','/' }}"><span itemprop="name">Older</span> <i class="fa fa-angle-double-right"></i></a>
+    </li>
+    {% endif %}
+  </ul>
+</nav>
+{% endif %}
